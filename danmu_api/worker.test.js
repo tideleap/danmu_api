@@ -18,6 +18,7 @@ import IqiyiSource from "./sources/iqiyi.js";
 import MangoSource from "./sources/mango.js";
 import BilibiliSource from "./sources/bilibili.js";
 import YoukuSource from "./sources/youku.js";
+import MiguSource from "./sources/migu.js";
 import SohuSource from "./sources/sohu.js";
 import LeshiSource from "./sources/leshi.js";
 import XiguaSource from "./sources/xigua.js";
@@ -62,6 +63,7 @@ test('worker.js API endpoints', async (t) => {
   const mangoSource = new MangoSource();
   const bilibiliSource = new BilibiliSource();
   const youkuSource = new YoukuSource();
+  const miguSource = new MiguSource();
   const sohuSource = new SohuSource();
   const leshiSource = new LeshiSource();
   const xiguaSource = new XiguaSource();
@@ -211,6 +213,29 @@ test('worker.js API endpoints', async (t) => {
   //   assert(res.length >= 0, `Expected res.length >= 0, but got ${res.length}`);
   // });
 
+  // await t.test('GET migu danmu', async () => {
+  //   const res = await miguSource.getComments("https://www.miguvideo.com/p/detail/725117610", "migu");
+  //   assert(res.length > 2, `Expected res.length > 2, but got ${res.length}`);
+  // });
+
+  // await t.test('GET migu danmu segments', async () => {
+  //   const res = await miguSource.getComments("https://www.miguvideo.com/p/detail/725117610", "migu", true);
+  //   console.log(res.segmentList);
+  //   assert(res.type === "migu", `Expected res.type === "migu", but got ${res.type === "migu"}`);
+  //   assert(res.segmentList.length >= 0, `Expected res.segmentList.length >= 0, but got ${res.segmentList.length}`);
+  // });
+
+  // await t.test('GET migu segment danmu', async () => {
+  //   const segment = Segment.fromJson({
+  //     type: 'migu',
+  //     segment_start: 0,
+  //     segment_end: 300,
+  //     url: 'https://webapi.miguvideo.com/gateway/live_barrage/videox/barrage/v2/list/760834922/760835542/0/30/020',
+  //   });
+  //   const res = await miguSource.getSegmentComments(segment);
+  //   assert(res.length >= 0, `Expected res.length >= 0, but got ${res.length}`);
+  // });
+
   // await t.test('GET sohu danmu', async () => {
   //   const res = await sohuSource.getComments("https://film.sohu.com/album/8345543.html");
   //   assert(res.length > 2, `Expected res.length > 2, but got ${res.length}`);
@@ -269,9 +294,9 @@ test('worker.js API endpoints', async (t) => {
   // await t.test('GET xigua segment danmu', async () => {
   //   const segment = Segment.fromJson({
   //     type: 'xigua',
-  //     segment_start: 64000,
-  //     segment_end: 96000,
-  //     url: '7129807005509815588'
+  //     segment_start: 1200000,
+  //     segment_end: 1500000,
+  //     url: 'https://ib.snssdk.com/vapp/danmaku/list/v1/?item_id=6551333775341519368&start_time=1200000&end_time=1500000&format=json'
   //   });
   //   const res = await xiguaSource.getSegmentComments(segment);
   //   assert(res.length >= 0, `Expected res.length >= 0, but got ${res.length}`);

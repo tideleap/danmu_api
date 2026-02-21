@@ -712,6 +712,7 @@ export const componentsCssContent = /* css */ `
     display: inline-block;
     margin-left: 10px;
 }
+
 /* Bilibili Cookie 编辑器样式 */
 .bili-cookie-editor {
     display: flex;
@@ -756,6 +757,334 @@ export const componentsCssContent = /* css */ `
     
     .bili-cookie-actions .btn {
         width: 100%;
+    }
+}
+
+/* 多选标签与合并模式相关样式 */
+.selected-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #667eea;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: move;
+    user-select: none;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    max-width: 100%;
+    height: auto;
+    white-space: normal;
+    word-break: break-all;
+    line-height: 1.4;
+}
+
+.merge-mode-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.merge-mode-btn {
+    padding: 6px 12px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s;
+    color: #666;
+}
+
+.merge-mode-btn.active {
+    background: #e3f2fd;
+    border-color: #2196f3;
+    color: #2196f3;
+    font-weight: 500;
+}
+
+.staging-area {
+    display: none;
+    background: #e3f2fd;
+    border: 2px dashed #90caf9;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    min-height: 52px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.staging-area.active {
+    display: flex;
+    animation: slideDown 0.3s;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.staging-area::before {
+    content: '合并组暂存区:';
+    color: #1976d2;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.staging-tag {
+    background: white;
+    color: #1976d2;
+    border: 1px solid #bbdefb;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: move; 
+    user-select: none;
+    max-width: 100%;
+    word-break: break-all;
+}
+
+.staging-tag.drag-over {
+    background: #bbdefb;
+    border-color: #2196f3;
+    transform: scale(1.05);
+}
+
+.staging-tag.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+    background: #e3f2fd;
+}
+
+.staging-tag .remove-btn {
+    color: #ef5350;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.staging-separator {
+    color: #999;
+    font-weight: bold;
+}
+
+.confirm-merge-btn {
+    margin-left: auto;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.2s;
+}
+
+.confirm-merge-btn:hover {
+    background: #43a047;
+    transform: scale(1.1);
+}
+
+.confirm-merge-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.available-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.available-tag {
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.available-tag:hover {
+    background: #f0f0f0;
+    border-color: #bbb;
+}
+
+.available-tag.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f5f5f5;
+    color: #aaa;
+    pointer-events: none;
+    border-color: #eee;
+    box-shadow: none;
+}
+
+/* 请求记录样式 */
+.request-records-container {
+    border-radius: 8px;
+}
+
+.no-records {
+    text-align: center;
+    color: #fff;
+    padding: 60px;
+    font-style: italic;
+    font-size: 16px;
+}
+
+.record-item {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border: none;
+    border-radius: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.record-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+.record-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.record-method {
+    background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 60px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,180,219,0.3);
+}
+
+.record-interface {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: #2d3748;
+    word-break: break-all;
+    font-size: 15px;
+    background: #edf2f7;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.record-ip {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    min-width: 120px;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(245,87,108,0.3);
+}
+
+.record-timestamp {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px dashed #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.record-timestamp.no-params {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.record-timestamp::before {
+    content: '🕐';
+    font-size: 16px;
+}
+
+.record-params {
+    background: #f5f5f5;
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.record-params-title {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.record-params-title::before {
+    content: '📋';
+    font-size: 16px;
+}
+
+.record-params pre {
+    margin: 0;
+    padding: 15px;
+    background: #ffffff;
+    color: #333;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+    line-height: 1.6;
+    border: 1px solid #ddd;
+}
+
+/* 请求记录移动端适配 */
+@media (max-width: 768px) {
+    .record-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .record-method,
+    .record-interface,
+    .record-ip {
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 `;
