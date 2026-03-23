@@ -419,12 +419,22 @@ export default class TencentSource extends BaseSource {
           }
 
           if (links.length > 0) {
+            // 从第一集标题中提取版本信息
+            const firstEpTitle = eps[0].unionTitle || eps[0].title || `第1集`;
+            let displayTitle = anime.title;
+
+            // 检查第一集标题是否包含 anime.title 且匹配 xxxx[xxx版] 格式
+            const versionMatch = firstEpTitle.match(/\[.+版\]/);
+            if (versionMatch && firstEpTitle.includes(anime.title)) {
+              displayTitle = `${anime.title}${versionMatch[0]}`;
+            }
+
             // 将字符串mediaId转换为数字ID (使用哈希函数)
             const numericAnimeId = convertToAsciiSum(anime.mediaId);
             let transformedAnime = {
               animeId: numericAnimeId,
               bangumiId: anime.mediaId,
-              animeTitle: `${anime.title}(${anime.year})【${anime.type}】from tencent`,
+              animeTitle: `${displayTitle}(${anime.year})【${anime.type}】from tencent`,
               type: anime.type,
               typeDescription: anime.type,
               imageUrl: anime.imageUrl,
