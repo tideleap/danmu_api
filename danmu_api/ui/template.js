@@ -367,6 +367,12 @@ export const HTML_TEMPLATE = /* html */ `
         ${requestRecordsJsContent}
         ${systemSettingsJsContent}
     </script>
+    
+    <!-- Vercel Speed Insights -->
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
 `;
