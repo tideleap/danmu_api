@@ -367,6 +367,10 @@ export const HTML_TEMPLATE = /* html */ `
         ${requestRecordsJsContent}
         ${systemSettingsJsContent}
     </script>
+    <script type="module">
+        import { injectSpeedInsights } from '/_vercel/speed-insights/script.js';
+        injectSpeedInsights();
+    </script>
 </body>
 </html>
 `;
